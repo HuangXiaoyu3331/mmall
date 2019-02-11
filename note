@@ -1,12 +1,12 @@
-记录该项目用到的知识点
+记录该项目用到的知识点（后面跟着的链接是该知识点的用法教程）
 
 1 数据库技术
-    数据库连接池 druid
-    mybatis三剑客 mybatis、mybatis generator、mybatis pagehelper
+    使用 druid 作为数据库的连接池（地址:https://blog.csdn.net/qq_35787138/article/details/83862543）
+    mybatis三剑客 mybatis、mybatis generator、mybatis pagehelper(地址:https://blog.csdn.net/qq_35787138/article/details/83660453)
     通用Mapper，通用mapper，create_time跟update_time字段的自动更新
 
 2 提高效率插件
-    对象映射Dozer
+    对象映射Dozer（地址:https://blog.csdn.net/qq_35787138/article/details/86767706）
     lombok
 
 2 拦截器登录拦截
@@ -20,9 +20,9 @@
     jackson(spring boot自己已经有集成jackson了，不用自己再次引入)
     常用工具类的封装（jsonUtil、Md5Util、PropertiesUtil、DateTimeUtil）
 
-5 配置文件环境隔离
+5 配置文件环境隔离(地址:https://blog.csdn.net/qq_35787138/article/details/83658918)
 
-6 logback环境隔离
+6 logback环境隔离(地址:https://blog.csdn.net/qq_35787138/article/details/85625226)
 
 7 常用封装
     通用的数据返回对象、枚举类、guava缓存
