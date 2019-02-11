@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huang.mmall.dao.CartMapper">
+    <resultMap id="BaseResultMap" type="com.huang.mmall.bean.pojo.Cart">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="product_id" jdbcType="INTEGER" property="productId"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="checked" jdbcType="INTEGER" property="checked"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, user_id, product_id, quantity, checked, create_time, update_time
+    </sql>
+    <select id="selectByUserIdAndProductId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mmall_cart
+        where user_id = #{userId}
+        and product_id = #{productId}
+    </select>
+    <select id="selectCartByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mmall_cart
+        where user_id = #{userId}
+    </select>
+    <select id="selectCartProductCheckedStatusByUserId" resultType="java.lang.Integer">
+        select count(1) from mmall_cart where checked = 0 and user_id = #{userId}
+    </select>
+    <select id="selectProductCountByUserId" resultType="java.lang.Integer">
+--         使用ifnull，当数据查出来没有值的时候是null，null是不会赋值给基本数据类型的，所以要加个判断
+        select IFNULL(sum(quantity),0) as count
+        from mmall_cart
+        where user_id = #{userId}
+    </select>
+    <select id="selectCheckedCartByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mmall_cart
+        where user_id = #{userId}
+        and checked = 1
+    </select>
+    <delete id="deleteByUserIdProductIds">
+        delete from mmall_cart
+        where user_id = #{userId}
+        <if test="productIdList != null">
+            and product_id in
+            <foreach collection="productIdList" open="(" separator="," close=")" index="item">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+    <update id="checkedOrUncheckedProduct">
+        update mmall_cart
+        set checked = #{checked}
+        where user_id = #{userId}
+        <if test="productId != null">
+            and product_id = #{productId}
+        </if>
+    </update>
+</mapper>

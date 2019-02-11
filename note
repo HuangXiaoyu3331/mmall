@@ -1,0 +1,35 @@
+记录该项目用到的知识点
+
+1 数据库技术
+    数据库连接池 druid
+    mybatis三剑客 mybatis、mybatis generator、mybatis pagehelper
+    通用Mapper，通用mapper，create_time跟update_time字段的自动更新
+
+2 提高效率插件
+    对象映射Dozer
+    lombok
+
+2 拦截器登录拦截
+
+3 junit 测试
+
+4 常用工具类
+    guava
+    apache-common-lang3
+    joda-time
+    jackson(spring boot自己已经有集成jackson了，不用自己再次引入)
+    常用工具类的封装（jsonUtil、Md5Util、PropertiesUtil、DateTimeUtil）
+
+5 配置文件环境隔离
+
+6 logback环境隔离
+
+7 常用封装
+    通用的数据返回对象、枚举类、guava缓存
+
+8 越权问题
+    横向越权，纵向越权
+
+9 订单号的生成规则
+
+10 mybatis批量插入

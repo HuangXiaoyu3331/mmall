@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <!--wildcard默认为true，映射每个对象的所有字段，为false时，只映射显示映射的字段-->
+    <mapping wildcard="true">
+        <class-a>com.huang.mmall.test.User</class-a>
+        <class-b>com.huang.mmall.test.UserXmlDestinationObject</class-b>
+        <field>
+            <a>name</a>
+            <b>username</b>
+        </field>
+        <field>
+            <a>password</a>
+            <b>psw</b>
+        </field>
+        <!--字段配置优先级高于全局配置-->
+        <field>
+            <a date-format="yyyy-MM-dd HH:mm:ss">date</a>
+            <b>createTime</b>
+        </field>
+    </mapping>
+
+</mappings>

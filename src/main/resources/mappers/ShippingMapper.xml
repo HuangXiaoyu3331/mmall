@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huang.mmall.dao.ShippingMapper">
+    <resultMap id="BaseResultMap" type="com.huang.mmall.bean.pojo.Shipping">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone"/>
+        <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile"/>
+        <result column="receiver_province" jdbcType="VARCHAR" property="receiverProvince"/>
+        <result column="receiver_city" jdbcType="VARCHAR" property="receiverCity"/>
+        <result column="receiver_district" jdbcType="VARCHAR" property="receiverDistrict"/>
+        <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress"/>
+        <result column="receiver_zip" jdbcType="VARCHAR" property="receiverZip"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, user_id, receiver_name, receiver_phone, receiver_mobile, receiver_province, receiver_city,
+        receiver_district, receiver_address, receiver_zip, create_time, update_time
+    </sql>
+    <update id="updateShippingByUserId" parameterType="com.huang.mmall.bean.pojo.Shipping">
+        update mmall_shipping
+        set receiver_name = #{receiverName},
+        receiver_phone = #{receiverPhone},
+        receiver_mobile = #{receiverMobile},
+        receiver_province = #{receiverProvince},
+        receiver_city = #{receiverCity},
+        receiver_district = #{receiverDistrict},
+        receiver_address = #{receiverAddress},
+        receiver_zip = #{receiverZip}
+        where id = #{id}
+        and  user_id = #{userId}
+    </update>
+    <delete id="deleteByUserIdAndShippingId">
+        delete from mmall_shipping
+        where user_id = #{userId}
+        and id = #{shippingId}
+    </delete>
+    <select id="selectByUserIdAndShippingId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mmall_shipping
+        where id = #{shippingId}
+        and user_id = #{userId}
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mmall_shipping
+        where user_id = #{userId}
+    </select>
+</mapper>

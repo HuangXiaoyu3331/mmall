@@ -1,0 +1,56 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      #配置初始化大小
+      initial-size: 1
+      #最小连接数
+      min-idle: 1
+      #最大连接数
+      max-active: 10
+      #配置获取连接等待超时的时间
+      max-wait: 60000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 2000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1 from mmall_user
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #配置监控统计拦截的filter，防止sql注入的filter
+      filters: stat,wall
+      #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      stat-view-servlet:
+        url-pattern: /druid/*
+        login-username: root
+        login-password: 123456
+        #ip白名单
+        allow: 127.0.0.1,192.168.137.1
+        #ip黑名单
+        deny: 192.168.1.100
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 200MB
+mybatis:
+  #mapper.xml文件的位置
+  mapper-locations: classpath:mappers/*.xml
+  #pojo 类的位置
+  type-aliases-package: com.huang.mmall.bean.pojo
+  configuration:
+    # 开启驼峰命名
+    map-underscore-to-camel-case: true
+pagehelper:
+  # 设置数据库类型
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+mapper:
+  #多个用“，”隔开
+  mappers: com.huang.mmall.dao.BaseMapper
+  not-empty: false
+  identity: MYSQL
