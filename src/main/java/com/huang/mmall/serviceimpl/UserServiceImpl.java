@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
         }
         //校验用户是否存在
         ServerResponse<String> validResponse = checkValid(username, Const.USERNAME);
-        if (!validResponse.isSuccess()) {
+        if (validResponse.isSuccess()) {
             log.warn("修改用户：{}密码失败，用户不存在", username);
             return ServerResponse.createByErrorMessage("用户不存在");
         }

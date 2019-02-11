@@ -67,10 +67,10 @@ public class Shipping {
     @Column(name = "receiver_zip")
     private String receiverZip;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", insertable = false)
     private Date createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", insertable = false, updatable = false)
     private Date updateTime;
 
     /**

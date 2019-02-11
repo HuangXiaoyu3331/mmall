@@ -186,6 +186,7 @@ public class ProductServiceImpl implements ProductService {
         PageHelper.startPage(pageNum, pageSize);
         if (StringUtils.isNotBlank(orderBy)) {
             if (Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)) {
+                orderBy = orderBy.replace("_", " ");
                 PageHelper.orderBy(orderBy);
             }
         }

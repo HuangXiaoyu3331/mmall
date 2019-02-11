@@ -28,7 +28,7 @@ public interface ShippingMapper extends BaseMapper<Shipping> {
      * @param record 收货地址详情
      * @return
      */
-    int updateShippingByUserId(Shipping record);
+    int updateShippingByUserIdSelective(Shipping record);
 
     /**
      * 根据用户id和地址id查询地址信息

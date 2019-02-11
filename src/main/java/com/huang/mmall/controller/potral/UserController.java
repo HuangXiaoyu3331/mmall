@@ -54,8 +54,13 @@ public class UserController {
     @GetMapping("/logout")
     public ServerResponse<String> logout(HttpSession session) {
         log.info("用户登出");
-        session.removeAttribute(Const.CURRENT_USER);
-        return ServerResponse.createBySuccess();
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("用户未登录，无需登出");
+        } else {
+            session.removeAttribute(Const.CURRENT_USER);
+            return ServerResponse.createBySuccess("登出成功");
+        }
     }
 
     /**
@@ -89,7 +94,7 @@ public class UserController {
      * @param session 会话session
      * @return 用户信息
      */
-    @GetMapping("/get_user_info")
+    @GetMapping
     public ServerResponse<User> getUserInfo(HttpSession session) {
         log.info("获取用户信息");
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -110,8 +115,8 @@ public class UserController {
      * @param username 用户名
      * @return 密保问题
      */
-    @GetMapping("/forget_get_question")
-    public ServerResponse<String> forgetGetQuestion(String username) {
+    @GetMapping("/question/{username}")
+    public ServerResponse<String> forgetGetQuestion(@PathVariable("username") String username) {
         log.info("查找密保问题->用户：{}", username);
         return userService.selectQuestion(username);
     }
@@ -138,7 +143,7 @@ public class UserController {
      * @param forgetToken 回答密保问题成功服务器返回的token
      * @return ServerResponse
      */
-    @PostMapping("/forget_reset_password")
+    @PutMapping("/forget/password")
     public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken) {
         log.info("未登录状态修改密码->用户：{}，新密码：{}，token：{}", username, passwordNew, forgetToken);
         return userService.forgetResetPassword(username, passwordNew, forgetToken);
@@ -152,7 +157,7 @@ public class UserController {
      * @param passwordNew 新密码
      * @return ServerResponse
      */
-    @PostMapping("/reset_password")
+    @PutMapping("/password")
     public ServerResponse<String> resetPassword(HttpSession session, String passwordOld, String passwordNew) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         log.info("登录状态修改用户密码");
@@ -163,7 +168,7 @@ public class UserController {
         return userService.resetPassword(passwordOld, passwordNew, user);
     }
 
-    @PutMapping("/user")
+    @PutMapping
     public ServerResponse<User> updateInfo(HttpSession session, @RequestBody User user) {
         log.info("修改用户信息");
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);

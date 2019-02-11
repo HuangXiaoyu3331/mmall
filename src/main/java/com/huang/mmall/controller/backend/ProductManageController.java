@@ -64,7 +64,7 @@ public class ProductManageController {
      * @param status
      * @return
      */
-    @PutMapping("/{productId}")
+    @PutMapping("/status/{productId}")
     public ServerResponse setSaleStatus(@PathVariable("productId") Integer productId, Integer status) {
         return productService.setSaleStatus(productId, status);
     }
@@ -87,9 +87,8 @@ public class ProductManageController {
      * @param pageSize 每页显示的条数
      * @return
      */
-    @GetMapping("/list")
-    public ServerResponse<PageInfo> getList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    @GetMapping("/list/{pageNum}/{pageSize}")
+    public ServerResponse<PageInfo> getList(@PathVariable int pageNum, @PathVariable int pageSize) {
         return productService.getProductList(pageNum, pageSize);
     }
 
@@ -177,7 +176,7 @@ public class ProductManageController {
         map.put("msg", "上传文件成功");
         map.put("file_path", url);
         //simditor上传成功需要返回这个返回头
-        response.addHeader("Access-Control-Allow-Headers","X-File-Name");
+        response.addHeader("Access-Control-Allow-Headers", "X-File-Name");
         return map;
     }
 

@@ -32,7 +32,7 @@ public class ShippingController {
     }
 
     @DeleteMapping("/{shippingId}")
-    public ServerResponse<String> add(HttpSession session, @PathVariable("shippingId") Integer shippingId) {
+    public ServerResponse<String> delete(HttpSession session, @PathVariable("shippingId") Integer shippingId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return shippingService.delete(user.getId(), shippingId);
     }
@@ -53,12 +53,12 @@ public class ShippingController {
     /**
      * 查询地址详情
      *
-     * @param session
-     * @param shippingId
+     * @param session    会话session
+     * @param shippingId 收货地址id
      * @return
      */
     @GetMapping("/{shippingId}")
-    public ServerResponse<Shipping> select(HttpSession session, @PathVariable("shippingId") Integer shippingId) {
+    public ServerResponse<Shipping> get(HttpSession session, @PathVariable("shippingId") Integer shippingId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return shippingService.select(user.getId(), shippingId);
     }

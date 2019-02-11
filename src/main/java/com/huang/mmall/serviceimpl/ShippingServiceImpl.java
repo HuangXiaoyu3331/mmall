@@ -55,9 +55,12 @@ public class ShippingServiceImpl implements ShippingService {
 
     @Override
     public ServerResponse update(Integer userId, Shipping shipping) {
+        if (shipping.getId() == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
         //shipping的userId必须重新设置一下，否则可能是从前端床过来的userId，可能产生横向越权问题
         shipping.setUserId(userId);
-        int resultCount = shippingMapper.updateShippingByUserId(shipping);
+        int resultCount = shippingMapper.updateShippingByUserIdSelective(shipping);
         if (resultCount > 0) {
             return ServerResponse.createBySuccess("更新地址成功");
         } else {
@@ -67,7 +70,7 @@ public class ShippingServiceImpl implements ShippingService {
 
     @Override
     public ServerResponse<Shipping> select(Integer userId, Integer shippingId) {
-        Shipping shipping = shippingMapper.selectByUserIdAndShippingId(userId,shippingId);
+        Shipping shipping = shippingMapper.selectByUserIdAndShippingId(userId, shippingId);
         if (shipping == null) {
             return ServerResponse.createByErrorMessage("查询地址失败");
         } else {

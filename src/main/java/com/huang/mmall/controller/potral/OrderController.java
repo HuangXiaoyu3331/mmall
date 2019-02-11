@@ -41,8 +41,8 @@ public class OrderController {
      * @param shippingId 地址id
      * @return
      */
-    @PostMapping("/{shippingId}")
-    public ServerResponse<OrderVo> createOrder(HttpSession session, @PathVariable("shippingId") Integer shippingId) {
+    @PostMapping
+    public ServerResponse<OrderVo> createOrder(HttpSession session, Integer shippingId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return orderService.createOrder(user.getId(), shippingId);
     }
@@ -93,7 +93,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/{orderNo}")
-    public ServerResponse<OrderVo> detail(HttpSession session, @PathVariable("orderNo") Long orderNo) {
+    public ServerResponse<OrderVo> detail(HttpSession session, @PathVariable Long orderNo) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return orderService.getOrderDetail(user.getId(), orderNo);
     }
@@ -107,8 +107,8 @@ public class OrderController {
      * @return
      */
     @GetMapping("/list/{pageNo}/{pageSize}")
-    public ServerResponse<PageInfo> list(HttpSession session, @PathVariable("pageNo") int pageNo,
-                                         @PathVariable("pageSize") int pageSize) {
+    public ServerResponse<PageInfo> list(HttpSession session, @PathVariable int pageNo,
+                                         @PathVariable int pageSize) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return orderService.getOrderList(user.getId(), pageNo, pageSize);
     }
@@ -165,7 +165,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/status/{orderNo}")
-    public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, @PathVariable("orderNo") Long orderNo) {
+    public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, @PathVariable Long orderNo) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         ServerResponse serverResponse = orderService.queryOrderPayStatus(user.getId(), orderNo);
         if (serverResponse.isSuccess()) {

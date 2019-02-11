@@ -25,18 +25,36 @@
         id, user_id, receiver_name, receiver_phone, receiver_mobile, receiver_province, receiver_city,
         receiver_district, receiver_address, receiver_zip, create_time, update_time
     </sql>
-    <update id="updateShippingByUserId" parameterType="com.huang.mmall.bean.pojo.Shipping">
+    <update id="updateShippingByUserIdSelective" parameterType="com.huang.mmall.bean.pojo.Shipping">
         update mmall_shipping
-        set receiver_name = #{receiverName},
-        receiver_phone = #{receiverPhone},
-        receiver_mobile = #{receiverMobile},
-        receiver_province = #{receiverProvince},
-        receiver_city = #{receiverCity},
-        receiver_district = #{receiverDistrict},
-        receiver_address = #{receiverAddress},
-        receiver_zip = #{receiverZip}
+        <set>
+            <if test="receiverName != null">
+                receiver_name = #{receiverName},
+            </if>
+            <if test="receiverPhone != null">
+                receiver_phone = #{receiverPhone},
+            </if>
+            <if test="receiverMobile != null">
+                receiver_mobile = #{receiverMobile},
+            </if>
+            <if test="receiverProvince != null">
+                receiver_province = #{receiverProvince},
+            </if>
+            <if test="receiverCity != null">
+                receiver_city = #{receiverCity},
+            </if>
+            <if test="receiverDistrict != null">
+                receiver_district = #{receiverDistrict},
+            </if>
+            <if test="receiverAddress != null">
+                receiver_address = #{receiverAddress},
+            </if>
+            <if test="receiverZip != null">
+                receiver_zip = #{receiverZip},
+            </if>
+        </set>
         where id = #{id}
-        and  user_id = #{userId}
+        and user_id = #{userId}
     </update>
     <delete id="deleteByUserIdAndShippingId">
         delete from mmall_shipping

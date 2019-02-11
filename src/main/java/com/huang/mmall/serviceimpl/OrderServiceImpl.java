@@ -34,6 +34,7 @@ import net.sf.jsqlparser.schema.Server;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -65,6 +66,7 @@ public class OrderServiceImpl implements OrderService {
     private ShippingService shippingService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ServerResponse<OrderVo> createOrder(Integer userId, Integer shippingId) {
         //从购物车中获取已经勾选的产品
         ServerResponse<List<Cart>> cartResponse = cartService.getCheckedCartByUserId(userId);

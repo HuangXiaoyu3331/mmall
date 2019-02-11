@@ -31,9 +31,8 @@ public class CartController {
      * @param session   会话session
      * @return
      */
-    @PostMapping("/{productId}/{count}")
-    public ServerResponse<CartVo> add(@PathVariable("productId") Integer productId,
-                                      @PathVariable("count") Integer count, HttpSession session) {
+    @PostMapping
+    public ServerResponse<CartVo> add(Integer productId, Integer count, HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.add(user.getId(), productId, count);
     }
@@ -46,9 +45,8 @@ public class CartController {
      * @param session   会话session
      * @return
      */
-    @PutMapping("/{productId}/{count}")
-    public ServerResponse<CartVo> update(@PathVariable("productId") Integer productId,
-                                         @PathVariable("count") Integer count, HttpSession session) {
+    @PutMapping
+    public ServerResponse<CartVo> update(Integer productId, Integer count, HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.update(user.getId(), productId, count);
     }
@@ -64,8 +62,8 @@ public class CartController {
      * @param session    会话session
      * @return
      */
-    @PostMapping("/delete")
-    public ServerResponse<CartVo> delete(String productIds, HttpSession session) {
+    @DeleteMapping("/{productIds}")
+    public ServerResponse<CartVo> delete(@PathVariable("productIds") String productIds, HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.delete(user.getId(), productIds);
     }
@@ -88,7 +86,7 @@ public class CartController {
      * @param session 会话session
      * @return
      */
-    @PutMapping("/checked")
+    @PutMapping("/product/checked")
     public ServerResponse<CartVo> selectAll(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.selectOrUnSelect(user.getId(), Const.Cart.CHECKED, null);
@@ -100,7 +98,7 @@ public class CartController {
      * @param session 会话session
      * @return
      */
-    @PutMapping("/unchecked")
+    @PutMapping("/product/unchecked")
     public ServerResponse<CartVo> unSelectAll(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.selectOrUnSelect(user.getId(), Const.Cart.UN_CHECKED, null);
@@ -113,7 +111,8 @@ public class CartController {
      * @param productId 商品id
      * @return
      */
-    public ServerResponse<CartVo> select(HttpSession session, Integer productId) {
+    @PutMapping("/product/{productId}/checked")
+    public ServerResponse<CartVo> select(HttpSession session, @PathVariable("productId") Integer productId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.selectOrUnSelect(user.getId(), Const.Cart.CHECKED, productId);
     }
@@ -125,12 +124,19 @@ public class CartController {
      * @param productId 商品id
      * @return
      */
-    public ServerResponse<CartVo> unSelect(HttpSession session, Integer productId) {
+    @PutMapping("/product/{productId}/unchecked")
+    public ServerResponse<CartVo> unSelect(HttpSession session, @PathVariable("productId") Integer productId) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         return cartService.selectOrUnSelect(user.getId(), Const.Cart.UN_CHECKED, productId);
     }
 
-    @GetMapping("/count")
+    /**
+     * 获得购物车中商品的数量
+     *
+     * @param session 会话session
+     * @return
+     */
+    @GetMapping("/product/count")
     public ServerResponse<Integer> getProductCount(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         //用户未登录

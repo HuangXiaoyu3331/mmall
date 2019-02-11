@@ -32,7 +32,8 @@ public interface OrderItemMapper extends BaseMapper<OrderItem> {
     /**
      * 批量插入
      *
-     * @param orderItemList
+     * @param orderItemList 订单详情list
+     * @return
      */
     int batchInsert(@Param("orderItemList") List<OrderItem> orderItemList);
 

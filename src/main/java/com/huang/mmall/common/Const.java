@@ -20,7 +20,7 @@ public class Const {
         /**
          * set的时间复杂度是O(1)，而List的时间复杂度是O(n)，所以用set性能会好一点
          */
-        Set<String> PRICE_ASC_DESC = Sets.newHashSet("price asc", "price desc");
+        Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_asc", "price_desc");
     }
 
     public interface Cart {

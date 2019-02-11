@@ -39,7 +39,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/manage/user/login")
                 .addPathPatterns("/cart/**")
                 .excludePathPatterns("/cart/count")
-                .addPathPatterns("/shipping/**");
+                .addPathPatterns("/shipping/**")
+                .addPathPatterns("/order/**")
+                .excludePathPatterns("/order/alipay_callback");
     }
 
     /**

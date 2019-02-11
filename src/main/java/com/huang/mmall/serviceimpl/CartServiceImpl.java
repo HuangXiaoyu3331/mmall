@@ -17,6 +17,7 @@ import com.huang.mmall.util.PropertiesUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -36,6 +37,7 @@ public class CartServiceImpl implements CartService {
     private ProductService productService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ServerResponse<CartVo> add(Integer userId, Integer productId, Integer count) {
         if (productId == null || count == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -60,7 +62,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public ServerResponse<CartVo> update(Integer userId, Integer productId, Integer count) {
-        if (productId == null || count == null) {
+        // 参数不能为空，且数量不能小于1
+        if (productId == null || count == null || count <= 0) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Cart cart = cartMapper.selectByUserIdAndProductId(userId, productId);
@@ -174,7 +177,7 @@ public class CartServiceImpl implements CartService {
                     }
                     cartProductVo.setQuantity(buyLimitCount);
                     //计算某个商品总价
-                    cartProductVo.setProductPrice(BigDecimalUtil.multiply(product.getPrice().doubleValue(), cartProductVo.getQuantity()));
+                    cartProductVo.setProductTotalPrice(BigDecimalUtil.multiply(product.getPrice().doubleValue(), cartProductVo.getQuantity()));
                     cartProductVo.setProductChecked(cartItem.getChecked());
                 }
                 //如果商品是勾选的，增加到购物车总价中
