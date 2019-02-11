@@ -5,7 +5,7 @@
     mybatis三剑客 mybatis、mybatis generator、mybatis pagehelper(地址:https://blog.csdn.net/qq_35787138/article/details/83660453)
     通用Mapper，通用mapper，create_time跟update_time字段的自动更新
 
-2 提高效率插件
+2 提高效率插件 
     对象映射Dozer（地址:https://blog.csdn.net/qq_35787138/article/details/86767706）
     lombok
 
