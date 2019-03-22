@@ -48,7 +48,7 @@ public class PropertiesUtil implements EnvironmentAware {
     public static String getProperty(String key, String defaultValue) {
         String value = env.getProperty(key.trim());
         if (StringUtils.isBlank(value)) {
-            return defaultValue;
+            return defaultValue.trim();
         } else {
             return value.trim();
         }
