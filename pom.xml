@@ -119,13 +119,14 @@
             <version>2.3</version>
         </dependency>
 
+        <!--dozer与spring boot的集成-->
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-spring-boot-starter</artifactId>
             <version>RELEASE</version>
         </dependency>
 
-        <!--dozer-spring-->
+        <!--dozer-spring的集成使用下面这两个依赖-->
         <!--<dependency>-->
             <!--<groupId>net.sf.dozer</groupId>-->
             <!--<artifactId>dozer-spring</artifactId>-->

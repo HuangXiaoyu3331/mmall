@@ -2,11 +2,13 @@ package com.huang.mmall.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.huang.mmall.bean.pojo.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class JsonUtilTest {
 
     @Test
