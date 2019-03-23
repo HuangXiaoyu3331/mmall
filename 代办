@@ -1,3 +1,0 @@
-1 了解spring boot怎么配置虚拟映射路径，与spring 内置tomcat的路径,
-    request.getSession().getServletContext().getRealPath("upload");是否需要写
-2 junit测试文件上传的时候request.getSession().getServletContext().getRealPath("upload");拿到的值为null
